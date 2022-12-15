@@ -2,7 +2,7 @@
 ## The Monty Program
 ### Authors
 * Irene Ndiritu
-* Nzubechukwu Ifechukwu
+* Nzubechukwu Ifechukwu <nzube.ifechukwu@gmail.com>
 #### The monty program
 * **Usage:** ```monty file```
   * where ```file``` is the path to the file containing Monty byte code
