@@ -1,12 +1,12 @@
 #include "monty.h"
 
 /**
- * _pint - prints the value on top of the stack
+ * pint - prints the value on top of the stack
  * @stack: pointer to the stack
  * @line_number: number of lines
  * Return: nothing
  */
-void _pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
