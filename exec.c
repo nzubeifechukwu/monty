@@ -22,6 +22,7 @@ void execute(stack_t **stack, FILE *file, unsigned int line_num, char *content)
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
+		{"sub", sub},
 		{NULL, NULL}
 	};
 	char *op;
