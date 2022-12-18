@@ -36,9 +36,9 @@ int main(int ac, char *av[])
 		line_number++;
 		if (read_line > 0)
 			execute(&stack, file, line_number, line_content);
-		free(line_content);
 	}
 	fclose(file);
-	free_stack(stack);
+	free(line_content);
+	free_stack(&stack);
 	return (0);
 }

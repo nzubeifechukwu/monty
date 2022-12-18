@@ -15,7 +15,14 @@ char *arg = "0"; /* this holds the int part of the opcode */
 void execute(stack_t **stack, FILE *file, unsigned int line_num, char *content)
 {
 	instruction_t op_ins[] = {
-		{"push", push}, {NULL, NULL}
+		{"push", push},
+		{"pall", pall},
+		{"pop", pop},
+		{"pint", pint},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+	       	{NULL, NULL}
 	};
 	char *op;
 	unsigned int i = 0;
@@ -35,9 +42,12 @@ void execute(stack_t **stack, FILE *file, unsigned int line_num, char *content)
 		}
 		i++;
 	}
-	fprintf(stderr, "L%d: unknown instruction %s\n", line_num, op);
-	fclose(file);
-	free(content);
-	free_stack(*stack);
-	exit(EXIT_FAILURE);
+	if (op_ins[i].opcode == NULL)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_num, op);
+		fclose(file);
+		free(content);
+		free_stack(stack);
+		exit(EXIT_FAILURE);
+	}
 }

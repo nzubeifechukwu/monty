@@ -34,14 +34,14 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void push(stack_t **stack, unsigned int line_number);
+void push(stack_t **head, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
-void free_stack(stack_t *head);
+void free_stack(stack_t **head);
 void execute(stack_t **head, FILE *file, unsigned int line_num, char *content);
 
 extern char *arg; /* this will store the integer part of the opcode */
