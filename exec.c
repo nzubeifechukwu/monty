@@ -23,6 +23,9 @@ void execute(stack_t **stack, FILE *file, unsigned int line_num, char *content)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", _div},
+		{"mul", mul},
+		{"mod", mod},
 		{NULL, NULL}
 	};
 	char *op;
