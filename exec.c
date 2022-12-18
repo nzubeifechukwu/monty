@@ -7,7 +7,7 @@ char *arg = "0"; /* this holds the int part of the opcode */
 
 /**
  * execute - executes the opcode
- * @head: points to the head of the stack
+ * @stack: points to the head of the stack
  * @file: points to the monty file
  * @line_num: line number in the monty file
  * @content: content of the line number
@@ -22,7 +22,7 @@ void execute(stack_t **stack, FILE *file, unsigned int line_num, char *content)
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
-	       	{NULL, NULL}
+		{NULL, NULL}
 	};
 	char *op;
 	unsigned int i = 0;
