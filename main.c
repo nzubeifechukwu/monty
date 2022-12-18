@@ -1,6 +1,7 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
-#include <monty.h>
+#include "monty.h"
 
 /**
  * main - calls the execute function for the monty interpreter
@@ -18,7 +19,7 @@ int main(int ac, char *av[])
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
 
-	if (argc != 2)
+	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
@@ -31,11 +32,11 @@ int main(int ac, char *av[])
 	}
 	while (read_line > 0)
 	{
-		read_line = getline(&content, &size, file);
+		read_line = getline(&line_content, &size, file);
 		line_number++;
 		if (read_line > 0)
-			execute(content, &stack, line_number, file);
-		free(content);
+			execute(&stack, file, line_number, line_content);
+		free(line_content);
 	}
 	fclose(file);
 	free_stack(stack);

@@ -1,34 +1,6 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
-
-/**
- */
-char *str_strip(char *str, char *str1)
-{
-    int idx = 0, j, k = 0;
-
-    // Iterate String until last
-    // leading space character
-    while (str[idx] == ' ' || str[idx] == '\t' || str[idx] == '\n')
-    {
-        idx++;
-    }
-
-    // Run a for loop from index until the original
-    // string ends and copy the content of str to str1
-    for (j = idx; str[j] != '\0'; j++)
-    {
-        str1[k] = str[j];
-        k++;
-    }
-
-    // Insert a string terminating character
-    // at the end of new string
-    str1[k] = '\0';
-
-    // Print the string with no whitespaces
-    return (str1);
-}
+#include "monty.h"
 
 /**
  * push - add to the top of the stack
@@ -38,11 +10,50 @@ char *str_strip(char *str, char *str1)
  */
 void push(stack_t **head, unsigned int line_number)
 {
-	if (op_arg.prop == NULL)
+	int i = 0;
+	stack_t *new_node;
+
+	if (arg == NULL)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n");
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		if (*head != NULL)
+			free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
+	else
+	{
+		while (arg[i] != '\0')
+		{
+			if (arg[i] < 48 || arg[i] > 57)
+			{
+				fprintf(stderr, "L%d: usage: push integer\n", line_number);
+				if (*head != NULL)
+					free_stack(*head);
+				exit(EXIT_FAILURE);
+			}
+			i++;
+		}
+	}
 
-	op_arg.prop = str_strip(op_arg.prop);
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		if (*head != NULL)
+			free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	new_node->n = atoi(arg);
+	if (*head == NULL)
+	{
+		new_node->next = NULL;
+		new_node->prev = NULL;
+		*head = new_node;
+	}
+	else
+	{
+		new_node->next = *head;
+		new_node->prev = NULL;
+		*head = new_node;
+	}
 }

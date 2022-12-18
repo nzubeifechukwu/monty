@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "monty.h"
+
+char *arg = "0"; /* this holds the int part of the opcode */
 
 /**
  * execute - executes the opcode
@@ -9,43 +12,25 @@
  * @line_num: line number in the monty file
  * @content: content of the line number
  */
-void execute(stack_t **head, FILE *file, unsigned int line_num, char *content)
+void execute(stack_t **stack, FILE *file, unsigned int line_num, char *content)
 {
 	instruction_t op_ins[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{"nop", nop},
-		{"sub", sub},
-		{"div", div},
-		{"mul", mul},
-		{"mod", mod},
-		{"pchar", pchar},
-		{"pstr", pstr},
-		{"rotl", rotl},
-		{"rotr", rotr},
-		{"stack", _stack},
-		{"queue", _queue},
-		{NULL, NULL}
+		{"push", push}, {NULL, NULL}
 	};
-	char *op_arg, *op;
+	char *op;
 	unsigned int i = 0;
 
-	op_arg = str_strip(content);
-	op = strtok(op_arg, " ");
+	op = strtok(content, " \n\t");
 
 	if (op != NULL && op[0] == '#')
 		return;
-	arg = strtok(NULL, "");
+	arg = strtok(NULL, " \n\t");
 
 	while (op_ins[i].opcode != NULL && op != NULL)
 	{
 		if (strcmp(op_ins[i].opcode, op) == 0)
 		{
-			op_ins[i].f(*head, line_num);
+			op_ins[i].f(stack, line_num);
 			return;
 		}
 		i++;
@@ -53,6 +38,6 @@ void execute(stack_t **head, FILE *file, unsigned int line_num, char *content)
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_num, op);
 	fclose(file);
 	free(content);
-	free_stack(stack);
+	free_stack(*stack);
 	exit(EXIT_FAILURE);
 }
